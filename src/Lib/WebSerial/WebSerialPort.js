@@ -6,7 +6,8 @@ const serialOptions = {
     stopBits: 1,
     parity: 'none',
     bufferSize: 16384,
-    flowControl: 'none'
+    flowControl: 'none',
+    interByteTimeout: 300,
 }
 
 module.exports = class WebSerialPort extends EventEmitter {
@@ -108,6 +109,7 @@ module.exports = class WebSerialPort extends EventEmitter {
 
     async #readPort() {
         this.#_keepReading = true;
+        let data;
 
         while (this.#_port.readable && this.#_keepReading) {
             try {
@@ -117,7 +119,19 @@ module.exports = class WebSerialPort extends EventEmitter {
                         break;
                     }
                     if (value) {
-                        this.emit('data', value);
+                        if(value.length < 2)
+                            this.emit('data', value);
+                        else {
+                            if(typeof data === "undefined" || data === null)
+                                data = value;
+                            else
+                                data = this._concatTypedArrays(data, value);
+                            
+                            setTimeout(() => {
+                                if (data !== null) this.emit('data', data);
+                                data = null;
+                            }, serialOptions.interByteTimeout);
+                        }    
                     }
                 }
             }
@@ -128,5 +142,15 @@ module.exports = class WebSerialPort extends EventEmitter {
                 this.#_reader.releaseLock();
             }
         }
+    }
+
+    _concatTypedArrays(a, b) {
+        if(typeof a !== typeof b)
+            throw new Error('Arrays must be of the same type');
+
+        var c = new (a.constructor)(a.length + b.length);
+        c.set(a, 0);
+        c.set(b, a.length);
+        return c;
     }
 }
