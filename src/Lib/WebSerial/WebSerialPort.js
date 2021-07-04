@@ -5,7 +5,7 @@ const serialOptions = {
     dataBits: 8,
     stopBits: 1,
     parity: 'none',
-    // bufferSize: 1024,
+    bufferSize: 16384,
     flowControl: 'none'
 }
 
@@ -57,6 +57,12 @@ module.exports = class WebSerialPort extends EventEmitter {
 
     async openPort(options = serialOptions) {
         try {
+
+            Object.keys(serialOptions).forEach(key => {
+                if(options[key] == null)
+                    options[key] = serialOptions[key];
+            })
+
             await this.#_port.open(options);
             this.isOpen = true;
 
