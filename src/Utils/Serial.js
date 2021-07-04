@@ -160,25 +160,14 @@ export default class Serial extends WebSerialPort {
             hexData =  hexData.slice(1);
 
         if(hexData[hexData.length - 1] !== ETX)
-            hexData =  this.#concatTypedArrays(hexData, new Uint8Array([ETX]));
+            hexData =  this._concatTypedArrays(hexData, new Uint8Array([ETX]));
 
-        hexData = this.#concatTypedArrays(hexData, new Uint8Array([this.#LRC(hexData)]));
+        hexData = this._concatTypedArrays(hexData, new Uint8Array([this.#LRC(hexData)]));
 
-        return this.#concatTypedArrays(new Uint8Array([STX]), hexData);
+        return this._concatTypedArrays(new Uint8Array([STX]), hexData);
     }
 
     #LRC(hexData) {
         return hexData.reduce((accumulator, byte) => accumulator ^ byte, 0);
-    }
-
-    #concatTypedArrays(a, b) {
-
-        if(typeof a !== typeof b)
-            throw new Error('Arrays must be of the same type');
-
-        var c = new (a.constructor)(a.length + b.length);
-        c.set(a, 0);
-        c.set(b, a.length);
-        return c;
     }
 }
