@@ -4,6 +4,9 @@
   "description": "SDK Web para POS Integrado y Autoservicio",
   "main": "index.js",
   "scripts": {
+    "start": "webpack --watch --config webpack.config.js",
+    "build": "webpack --config webpack.config.js",
+    "prepublish": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -14,6 +17,7 @@
   "author": "Mauricio Astudillo <mauricio,astudillo@continuumhq.com>",
   "license": "BSD-3-Clause",
   "devDependencies": {
+    "babel-loader": "^8.2.2",
     "webpack": "^5.42.0",
     "webpack-cli": "^4.7.2"
   }
