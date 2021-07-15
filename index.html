@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test POS Web</title>
+    <style>
+        .box_div {
+            border: solid 1px #000;
+            border-radius: 5px;
+            width: 300px;
+            padding: 10px;
+            margin-top: 15px;
+        }
+
+        .box_div2 {
+            border: solid 1px rgb(180, 175, 175);
+            border-radius: 5px;
+            width: 280px;
+            padding: 10px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="state" class="box_div">
+        <h1>State</h1>
+        <label for="">Browser support</label>: </label>
+        <label for="" id="browser_support"></label><br>
+        <label for="">POS state: </label>
+        <label for="" id="statePOS"></label><br>
+        <label for="">Sale state: </label>
+        <label for="" id="stateSale"></label><br>
+    </div>
+    <div id="connection" class="box_div">
+        <h1>Connection</h1>
+        <button id="connect">Connect</button><br>
+        <button id="autoservicioConnect">autoservicio Connect</button><br>
+    </div>
+    
+    <div id="operations" class="box_div">
+        <h1>Operations</h1>
+        <button id="poll">Poll</button><br>
+        <button id="autoservicioPoll">Autoservicio Poll</button><br>
+        <button id="setNormalMode">SetNormalMode</button><br>
+        <button id="loadKeys">LoadKeys</button><br>
+        <button id="autoservicioLoadKeys">Autoservicio LoadKeys</button><br>
+        <div class="box_div2">
+            <h2>Sales</h2>
+            <form action="" id="sale">
+                <h3>Sale</h3>
+                <label for="amount">Amount:</label>
+                <input type="text" name="amount" required>
+                <input type="submit" value="Sale">
+            </form>
+            <form action="" id="multicodeSale">
+                <h3>Multicode Sale</h3>
+                <label for="amount">Amount:</label>
+                <input type="text" name="amount"><br>
+                <label for="commerceCode">Commerce Code</label>
+                <input type="text" name="commerceCode"><br>
+                <input type="submit" value="Sale">
+            </form>
+        </div>
+        <div class="box_div2">
+            <h2>Autoservicio Sales</h2>
+            <form action="" id="autoservicioSale">
+                <h3>Sale</h3>
+                <label for="amount">Amount:</label>
+                <input type="text" name="amount" required>
+                <label for="print">Get Voucher:</label>
+                <input type="radio" name="getVoucher" value="true" checked>Yes
+                <input type="radio" name="getVoucher" value="false">No
+                <input type="submit" value="Sale">
+            </form>
+            <form action="" id="autoservicioMulticodeSale">
+                <h3>Multicode Sale</h3>
+                <label for="amount">Amount:</label>
+                <input type="text" name="amount"><br>
+                <label for="commerceCode">Commerce Code</label>
+                <input type="text" name="commerceCode"><br>
+                <label for="print">Get Voucher:</label>
+                <input type="radio" name="getVoucher" value="true" checked>Yes
+                <input type="radio" name="getVoucher" value="false">No
+                <input type="submit" value="Sale">
+            </form>
+        </div>
+        <div class="box_div2">
+            <h2>Last Sales</h2>
+            <button id="lastSale">Last Sale</button><br>
+            <form action="" id="multicodeLastSale">
+                <label for="print">Get Voucher:</label>
+                <input type="radio" name="getVoucher" value="true" checked>Yes
+                <input type="radio" name="getVoucher" value="false">No
+                <input type="submit" value="MultiCode Last Sale">
+            </form>
+        </div>
+        <div class="box_div2">
+            <form action="" id="refund">
+                <h2>Refund</h2>
+                <label for="operationId">Operation ID:</label>
+                <input type="text" name="operationId" required>
+                <input type="submit" value="Refund">
+            </form>
+        </div>
+        <div class="box_div2">
+            <h2>Sales Details</h2>
+            <form action="" id="salesDetail">
+                <label for="print">Print on POS:</label>
+                <input type="radio" name="printOnPos" value="true" checked>Yes
+                <input type="radio" name="printOnPos" value="false">No
+                <input type="submit" value="Sale Detail">
+            </form>
+            <form action="" id="multicodeSalesDetail">
+                <label for="print">Print on POS:</label>
+                <input type="radio" name="printOnPos" value="true" checked>Yes
+                <input type="radio" name="printOnPos" value="false">No
+                <input type="submit" value="MultiCode Last Sale">
+            </form>
+        </div>
+        <br>      
+        <button id="totalSale">Total Sale</button><br>
+        <button id="close">Close POS</button><br>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./dist/POS.js"></script>
+    <script src="./index.js"></script>   
+</body>
+</html>
