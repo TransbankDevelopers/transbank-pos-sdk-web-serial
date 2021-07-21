@@ -13,10 +13,6 @@ export default class POSAutoservicio extends Serial {
         this.#AutoservicioResponses = new AutoservicioResponses();
     }
 
-    poll() {
-        return this._send('0100', false);
-    }
-
     initialization() {
         return this._send('0070', false);
     }

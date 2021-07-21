@@ -170,4 +170,8 @@ export default class Serial extends WebSerialPort {
     #LRC(hexData) {
         return hexData.reduce((accumulator, byte) => accumulator ^ byte, 0);
     }
+
+    poll() {
+        return this._send('0100', false);
+    }
 }

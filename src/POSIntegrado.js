@@ -13,10 +13,6 @@ export default class POSIntegrado extends Serial {
         this.#IntegradoResponses = new IntegradoResponses();
     }
 
-    poll() {
-        return this._send('0100', false);
-    }
-
     setNormalMode() {
         return this._send('0300', false);
     }
