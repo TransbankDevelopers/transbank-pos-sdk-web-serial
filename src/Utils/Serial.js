@@ -36,6 +36,34 @@ export default class Serial extends WebSerialPort {
         });
     }
 
+    autoConnect (baudRate = 115200) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let authorizedPorts =  await this.getAuthorizedPorts();
+
+                for (const port of authorizedPorts) {
+                    this.port = port;
+                    await this.#open(baudRate);
+                    
+                    if(await this.poll()) {
+                        resolve(true);
+                        return;
+                    }
+                };
+                /* if(authorizedPorts.length > 0) {
+                    this.port = authorizedPorts[0];
+                    await this.connect(baudRate);
+                    resolve(true);
+                } */
+
+                resolve(false);
+            }
+            catch(err){
+                reject(`Can't run autoConnect. error: ${err.message}`);
+            }
+        });
+    }
+
     connect(baudRate = 115200) {
         return new Promise((resolve, reject) => {
             // Block so just one connect command can be sent at a time
@@ -49,27 +77,7 @@ export default class Serial extends WebSerialPort {
             if(this.isOpen) this.closePort();
 
             return this.requestSerialPort().then(async () => {
-                let result = await this.openPort({baudRate: baudRate});
-        
-                // Aqui se reciben los datos del puerto serial. 
-                this.on('data', async (data) => {
-        
-                    // Primero, se recibe un ACK
-                    if (this.#itsAnACK(data)) {
-                        if (typeof this.#ackCallback==="function") {
-                            this.#ackCallback(data);
-                        }
-                        return;
-                    }
-        
-                    // Si se recibió una respuesta (diferente a un ACK) entonces responder con un ACK y mandar el mensaje por callback
-                    await this.#writeACK();
-                    if (typeof this.#responseCallback==="function") {
-                        this.#responseCallback(data);
-                    }
-                })
-    
-                resolve(result);
+                resolve(await this.#open(baudRate));
             }).finally(() => this.#connecting = false);
         });
     }
@@ -95,6 +103,30 @@ export default class Serial extends WebSerialPort {
         });
     }
 
+    async #open (baudRate = 115200) {
+        let result = await this.openPort({baudRate: baudRate});
+        
+        // Aqui se reciben los datos del puerto serial. 
+        this.on('data', async (data) => {
+
+            // Primero, se recibe un ACK
+            if (this.#itsAnACK(data)) {
+                if (typeof this.#ackCallback==="function") {
+                    this.#ackCallback(data);
+                }
+                return;
+            }
+
+            // Si se recibió una respuesta (diferente a un ACK) entonces responder con un ACK y mandar el mensaje por callback
+            await this.#writeACK();
+            if (typeof this.#responseCallback==="function") {
+                this.#responseCallback(data);
+            }
+        });
+
+        return(result);
+    }
+
     _send(command, waitResponse = true, callback = null) {
         return new Promise((resolve, reject) => {
             if (!this.isOpen) {
@@ -112,6 +144,7 @@ export default class Serial extends WebSerialPort {
             let ackTimeout = setTimeout(() => {
                 this.#waiting = false;
                 clearTimeout(responseTimeout)
+                if(!waitResponse) resolve(false);
                 reject("ACK has not been received in " + this.#_ackTimeout + " ms.")
             }, this.#_ackTimeout);
 

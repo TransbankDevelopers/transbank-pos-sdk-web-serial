@@ -2,7 +2,18 @@ $(document).ready(() => {
     $('#browser_support').html(
         Transbank.POS.Integrado.browserSupport? 'Supported' : 'NotSupported'
     );
+
+    Transbank.POS.Integrado.autoConnect().then((result) => {
+        if(result) whenConnect();
+    });
 });
+
+const whenConnect = () => {
+    if(!$('#disconnect').length)
+        $('#connection').append('<button id="disconnect">Disconnect</button>');
+
+    $('#statePOS').html(`Connected to POS`);
+}
 
 $('#connect').click(function (e) { 
     e.preventDefault();
@@ -10,10 +21,7 @@ $('#connect').click(function (e) {
     Transbank.POS.Integrado.connect().then((result) => {
         console.log(result);
 
-        if(!$('#disconnect').length)
-            $('#connection').append('<button id="disconnect">Disconnect</button>');
-
-        $('#statePOS').html(`Connected to POS`);
+        whenConnect();
     });
 });
 

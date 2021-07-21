@@ -40,7 +40,7 @@ module.exports = class WebSerialPort extends EventEmitter {
             return true;
         }
         catch (err) {
-            console.error(`Cannot select serial port. ${err.message}.`);
+            console.error(`Cannot select serial port. error: ${err.message}.`);
             return false;
         }
     }
@@ -78,7 +78,7 @@ module.exports = class WebSerialPort extends EventEmitter {
             this.#_reader = null;
             this.#_writer = null;
 
-            throw new Error(`Cannot open port. ${e.message}`)
+            throw new Error(`Cannot open port. error: ${e.message}`)
         }
     }
 
@@ -94,7 +94,7 @@ module.exports = class WebSerialPort extends EventEmitter {
             this.#_writer = null;
         }
         catch (e) {
-            throw new Error(`Cannot close port. ${e.message}`)
+            throw new Error(`Cannot close port. error: ${e.message}`)
         }
     }
 
@@ -103,7 +103,7 @@ module.exports = class WebSerialPort extends EventEmitter {
             await this.#_writer.write(data);
         }
         catch (e) {
-            throw new Error(`Cannot write port. ${e.message}`);
+            throw new Error(`Cannot write port. error: ${e.message}`);
         }
     }
 
@@ -136,7 +136,7 @@ module.exports = class WebSerialPort extends EventEmitter {
                 }
             }
             catch (e) {
-                throw new Error(`Cannot read port. ${e.message}`);
+                throw new Error(`Cannot read port. error: ${e.message}`);
             }
             finally {
                 this.#_reader.releaseLock();
