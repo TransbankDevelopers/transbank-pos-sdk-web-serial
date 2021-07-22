@@ -1,5 +1,7 @@
 # Repositorio experimental
 
+[![Build Status](https://travis-ci.com/TransbankDevelopers/transbank-pos-sdk-web-serial.svg?branch=master)](https://travis-ci.com/TransbankDevelopers/transbank-pos-sdk-web-serial)
+
 # Transbank SDK Web Serial - Javascript
 
 ![transbank-pos-sdk-web-serial](https://user-images.githubusercontent.com/36648048/126574695-79a6b994-422d-45e8-88e0-b994554ba311.png)
