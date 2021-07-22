@@ -1,5 +1,5 @@
 {
-  "name": "transbank-pos-web-serial",
+  "name": "transbank-pos-sdk-web-serial",
   "version": "1.0.0",
   "description": "SDK Web para POS Integrado y Autoservicio",
   "main": "dist/POS.js",
@@ -26,6 +26,8 @@
   },
   "homepage": "https://github.com/TransbankDevelopers/transbank-pos-sdk-web-serial#readme",
   "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/preset-env": "^7.14.8",
     "babel-loader": "^8.2.2",
     "webpack": "^5.42.0",
     "webpack-cli": "^4.7.2"
