@@ -2,12 +2,17 @@
   "name": "transbank-pos-web-serial",
   "version": "1.0.0",
   "description": "SDK Web para POS Integrado y Autoservicio",
-  "main": "index.js",
+  "main": "dist/POS.js",
+  "module": "src/POS.js",
   "scripts": {
     "start": "webpack --watch --config webpack.config.js",
     "build": "webpack --config webpack.config.js",
     "prepublish": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TransbankDevelopers/transbank-pos-sdk-web-serial.git"
   },
   "keywords": [
     "transbank",
@@ -16,6 +21,10 @@
   ],
   "author": "Mauricio Astudillo <mauricio,astudillo@continuumhq.com>",
   "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/TransbankDevelopers/transbank-pos-sdk-web-serial/issues"
+  },
+  "homepage": "https://github.com/TransbankDevelopers/transbank-pos-sdk-web-serial#readme",
   "devDependencies": {
     "babel-loader": "^8.2.2",
     "webpack": "^5.42.0",
