@@ -1,5 +1,7 @@
 const EventEmitter = require('events');
 
+import "regenerator-runtime/runtime";
+
 const serialOptions = {
     baudRate: 115200,
     dataBits: 8,
@@ -10,7 +12,7 @@ const serialOptions = {
     interByteTimeout: 300,
 }
 
-module.exports = class WebSerialPort extends EventEmitter {
+export default class WebSerialPort extends EventEmitter {
 
     #_port;
     #_reader;
