@@ -50,11 +50,6 @@ export default class Serial extends WebSerialPort {
                         return;
                     }
                 };
-                /* if(authorizedPorts.length > 0) {
-                    this.port = authorizedPorts[0];
-                    await this.connect(baudRate);
-                    resolve(true);
-                } */
 
                 resolve(false);
             }
