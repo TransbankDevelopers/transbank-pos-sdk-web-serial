@@ -9,7 +9,6 @@ const serialOptions = {
     parity: 'none',
     bufferSize: 16384,
     flowControl: 'none',
-    interByteTimeout: 300,
 }
 
 export default class WebSerialPort extends EventEmitter {
@@ -117,23 +116,23 @@ export default class WebSerialPort extends EventEmitter {
             try {
                 while (true) {
                     const { value, done } = await this.#_reader.read();
-                    if (done) {                       
+                    if (done) {
                         break;
                     }
-                    if (value) {
-                        if(value.length < 2)
-                            this.emit('data', value);
-                        else {
-                            if(typeof data === "undefined" || data === null)
-                                data = value;
-                            else
-                                data = this._concatTypedArrays(data, value);
-                            
-                            setTimeout(() => {
-                                if (data !== null) this.emit('data', data);
-                                data = null;
-                            }, serialOptions.interByteTimeout);
-                        }    
+
+                    if(value.length < 2 && (value[0] === 0x06 || value[0] === 0x15)) {
+                        this.emit('data', value);
+                    }
+                    else {
+                        if(typeof data === "undefined" || data === null)
+                            data = value;
+                        else
+                            data = this._concatTypedArrays(data, value);
+
+                        if(data !== null && data[data.length -2] === 0x03) {
+                            this.emit('data', data);
+                            data = null;
+                        }
                     }
                 }
             }
