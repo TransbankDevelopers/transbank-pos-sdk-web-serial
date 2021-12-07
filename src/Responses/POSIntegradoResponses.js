@@ -139,8 +139,8 @@ export default class POSIntegradoResponses {
             realTime: responseChunks[14],
             employeeId: responseChunks[15],
             tip: parseInt(responseChunks[16]),
-            feeAmount: (responseChunks[16]),
-            feeNumber: (responseChunks[17]),
+            feeAmount: (responseChunks[17]),
+            feeNumber: (responseChunks[18]),
         };
 
         if (functionCode === FUNCTION_CODE_MULTICODE_DETAIL_SALE) {
