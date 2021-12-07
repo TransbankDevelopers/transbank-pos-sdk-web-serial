@@ -1,5 +1,3 @@
-# Repositorio experimental
-
 [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/transbankdevelopers/transbank-pos-sdk-web-serial)](https://github.com/TransbankDevelopers/transbank-pos-sdk-web-serial/releases/latest)
 [![GitHub](https://img.shields.io/github/license/transbankdevelopers/transbank-pos-sdk-web-serial)](LICENSE)
 [![GitHub contributors](https://img.shields.io/github/contributors/transbankdevelopers/transbank-pos-sdk-web-serial)](https://github.com/TransbankDevelopers/transbank-pos-sdk-web-serial/graphs/contributors)
