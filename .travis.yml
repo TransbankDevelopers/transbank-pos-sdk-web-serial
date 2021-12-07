@@ -2,7 +2,7 @@ language: node_js
 os: linux
 dist: xenial
 node_js:
-  - stable
+  - 16
 
 script: echo "We don't have tests yet :("
 
