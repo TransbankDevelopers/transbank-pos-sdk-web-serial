@@ -85,7 +85,9 @@ $(document).ready(() => {
 $('#connect').click(function (e) { 
     e.preventDefault();
 
-    Transbank.POS.Integrado.connect().then((result) => {
+    let baudrate = $('#baudrate-integrado option:selected').val();
+
+    Transbank.POS.Integrado.connect(baudrate).then((result) => {
         console.log(result);
 
         whenConnect();
@@ -260,7 +262,9 @@ function saleState(posResponse) {
 $('#autoservicio-connect').click(function (e) { 
     e.preventDefault();
 
-    Transbank.POS.Autoservicio.connect().then((result) => {
+    let baudrate = $('#baudrate-autoservicio option:selected').val();
+
+    Transbank.POS.Autoservicio.connect(baudrate).then((result) => {
         console.log(result);
 
         whenConnect('autoservicio');

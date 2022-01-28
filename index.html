@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
   <title>Test POS Web</title>
   <style>
     .tab-content {
@@ -14,14 +15,34 @@
     .tab-content.active {
       display: block;
     }
-    pre {padding: 5px; margin: 5px; }
-    .string { color: green; }
-    .number { color: darkorange; }
-    .boolean { color: blue; }
-    .null { color: magenta; }
-.key { color: red; }
+
+    pre {
+      padding: 5px;
+      margin: 5px;
+    }
+
+    .string {
+      color: green;
+    }
+
+    .number {
+      color: darkorange;
+    }
+
+    .boolean {
+      color: blue;
+    }
+
+    .null {
+      color: magenta;
+    }
+
+    .key {
+      color: red;
+    }
   </style>
 </head>
+
 <body>
   <div class="flex flex-col h-screen">
     <div id="state" class="flex flex-col border-b-4 h-28">
@@ -45,11 +66,13 @@
       <!-- Options Tabs -->
       <div>
         <nav class="tabs flex flex-col sm:flex-row">
-          <button data-target="panel-1" class="tab active text-gray-600 py-4 px-6 block font-medium hover:text-blue-500 focus:outline-none text-blue-500 border-b-2 border-blue-500">
-              POS Integrado
+          <button data-target="panel-1"
+            class="tab active text-gray-600 py-4 px-6 block font-medium hover:text-blue-500 focus:outline-none text-blue-500 border-b-2 border-blue-500">
+            POS Integrado
           </button>
-          <button data-target="panel-2" class="tab text-gray-600 py-4 px-6 block font-medium hover:text-blue-500 focus:outline-none">
-              POS Autoservicio
+          <button data-target="panel-2"
+            class="tab text-gray-600 py-4 px-6 block font-medium hover:text-blue-500 focus:outline-none">
+            POS Autoservicio
           </button>
         </nav>
       </div>
@@ -57,125 +80,186 @@
     </div>
     <div class="h-full overflow-hidden" id="panels">
       <div class="panel-1 tab-content h-full active">
-          <div class="flex h-full">
-            <!-- Panel Menu -->
-            <div class="flex flex-col border-r-2 w-64 h-full bg-gray-50 overflow-auto">
-              <div id="connection" class="">
-                <p class="pl-3 bg-gray-200">Connection</p>
-                <button class="border w-full p-3 text-sm" id="connect">Connect</button>
+        <div class="flex h-full">
+          <!-- Panel Menu POS Integrado-->
+          <div class="flex flex-col border-r-2 w-64 h-full bg-gray-50 overflow-auto">
+            <div id="connection" class="">
+              <p class="pl-3 bg-gray-200">Connection</p>
+              <div class="pl-3 py-3">
+                <label for="baudrate-integrado">Baudrate:</label>
+                <select name="baudrate-integrado" id="baudrate-integrado" class="w-40">
+                  <option value="115200" selected>115200</option>
+                  <option value="57600">57600</option>
+                  <option value="19200">19200</option>
+                  <option value="14400">14400</option>
+                  <option value="9600">9600</option>
+                  <option value="4800">4800</option>
+                  <option value="2400">2400</option>
+                </select>
               </div>
-              <div id="operations" class="">
-                <p class="pl-3 bg-gray-200">Operations</p>
-                <button class="border w-full p-3 text-sm" id="poll">Poll</button>
-                <button class="border w-full p-3 text-sm" id="setNormalMode">SetNormalMode</button>
-                <button class="border w-full p-3 text-sm" id="loadKeys">LoadKeys</button>
-                <div class="border-t border-b p-1">
-                  <p>Normal Sale:</p>
-                  <form class="flex flex-col items-center p-2 space-y-2" action="" id="sale">
-                    <input class="p-2 border rounded-xl focus:outline-none" type="text" name="amount" placeholder="Amount" required>
-                    <input class="p-2 border rounded-xl focus:outline-none w-full cursor-pointer" type="submit" value="Sale">
-                  </form>
-                </div>
-                <div class="border-t border-b p-1">
-                  <p>Multi Code Sale:</p>
-                  <form class="flex flex-col items-center p-2 space-y-2" action="" id="multicodeSale">
-                    <input class="p-2 border rounded-xl focus:outline-none" type="text" name="amount" placeholder="Amount" required>
-                    <input class="p-2 border rounded-xl focus:outline-none" type="text" name="commerceCode" placeholder="Commerce Code" required>
-                    <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit" value="Sale">
-                  </form>
-                </div>
-                <button class="border w-full p-3 text-sm" id="lastSale">Last Sale</button>
-                <div class="border-t border-b p-1">
-                  <p>Multi Code Last Sale:</p>
-                  <form class="flex flex-col items-center p-2 space-y-2" action="" id="multicodeLastSale">
-                    <div class="space-x-2">
-                      <label for="print">Get Voucher:</label>
-                      <input type="radio" name="getVoucher" value="true" checked>Yes
-                      <input type="radio" name="getVoucher" value="false">No
-                    </div>
-                    <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit" value="Last Sale">
-                  </form>
-                </div>
-                <div class="border-t border-b p-1">
-                  <form class="flex flex-col items-center p-2 space-y-2" action="" id="refund">
-                    <input class="p-2 border rounded-xl focus:outline-none" type="text" name="operationId" placeholder="Operation ID"required>
-                    <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit" value="Refund">
-                  </form>
-                </div>
-                <div class="border-t border-b p-1">
-                  <p>Normal Sales Detail:</p>
-                  <form class="flex flex-col items-center p-2 space-y-2" action="" id="salesDetail">
-                    <div class="space-x-2">
-                      <label for="print">Print on POS:</label>
-                      <input type="radio" name="printOnPos" value="true" checked>Yes
-                      <input type="radio" name="printOnPos" value="false">No
-                    </div>
-                    <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit" value="Sale Detail">
-                  </form>
-                </div>
-                <div class="border-t border-b p-1">
-                  <p>Multi Code Sales Detail:</p>
-                  <form class="flex flex-col items-center p-2 space-y-2" action="" id="multicodeSalesDetail">
-                    <div class="space-x-2">
-                      <label for="print">Print on POS:</label>
-                      <input type="radio" name="printOnPos" value="true" checked>Yes
-                      <input type="radio" name="printOnPos" value="false">No
-                    </div>
-                    <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit" value="Sale Detail">
-                  </form>
-                </div>
-                <button class="border w-full p-3 text-sm" id="totalSale">Total Sale</button>
-                <button class="border w-full p-3 text-sm" id="close">Close POS</button> 
-              </div>
+              <button class="border w-full p-3 text-sm" id="connect">
+                Connect
+              </button>
             </div>
-            <!-- Panel Menu -->
-
-            <!-- Panel Menu Body -->
-            <div>
-              <div class="h-full overflow-auto" id="pos-response">
-
+            <div id="operations" class="">
+              <p class="pl-3 bg-gray-200">Operations</p>
+              <button class="border w-full p-3 text-sm" id="poll">
+                Poll
+              </button>
+              <button class="border w-full p-3 text-sm" id="setNormalMode">
+                SetNormalMode
+              </button>
+              <button class="border w-full p-3 text-sm" id="loadKeys">
+                LoadKeys
+              </button>
+              <div class="border-t border-b p-1">
+                <p>Normal Sale:</p>
+                <form class="flex flex-col items-center p-2 space-y-2" action="" id="sale">
+                  <input class="p-2 border rounded-xl focus:outline-none" type="text" name="amount" placeholder="Amount"
+                    required />
+                  <input class="p-2 border rounded-xl focus:outline-none w-full cursor-pointer" type="submit"
+                    value="Sale" />
+                </form>
               </div>
+              <div class="border-t border-b p-1">
+                <p>Multi Code Sale:</p>
+                <form class="flex flex-col items-center p-2 space-y-2" action="" id="multicodeSale">
+                  <input class="p-2 border rounded-xl focus:outline-none" type="text" name="amount" placeholder="Amount"
+                    required />
+                  <input class="p-2 border rounded-xl focus:outline-none" type="text" name="commerceCode"
+                    placeholder="Commerce Code" required />
+                  <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit"
+                    value="Sale" />
+                </form>
+              </div>
+              <button class="border w-full p-3 text-sm" id="lastSale">
+                Last Sale
+              </button>
+              <div class="border-t border-b p-1">
+                <p>Multi Code Last Sale:</p>
+                <form class="flex flex-col items-center p-2 space-y-2" action="" id="multicodeLastSale">
+                  <div class="space-x-2">
+                    <label for="print">Get Voucher:</label>
+                    <input type="radio" name="getVoucher" value="true" checked />Yes
+                    <input type="radio" name="getVoucher" value="false" />No
+                  </div>
+                  <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit"
+                    value="Last Sale" />
+                </form>
+              </div>
+              <div class="border-t border-b p-1">
+                <form class="flex flex-col items-center p-2 space-y-2" action="" id="refund">
+                  <input class="p-2 border rounded-xl focus:outline-none" type="text" name="operationId"
+                    placeholder="Operation ID" required />
+                  <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit"
+                    value="Refund" />
+                </form>
+              </div>
+              <div class="border-t border-b p-1">
+                <p>Normal Sales Detail:</p>
+                <form class="flex flex-col items-center p-2 space-y-2" action="" id="salesDetail">
+                  <div class="space-x-2">
+                    <label for="print">Print on POS:</label>
+                    <input type="radio" name="printOnPos" value="true" checked />Yes
+                    <input type="radio" name="printOnPos" value="false" />No
+                  </div>
+                  <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit"
+                    value="Sale Detail" />
+                </form>
+              </div>
+              <div class="border-t border-b p-1">
+                <p>Multi Code Sales Detail:</p>
+                <form class="flex flex-col items-center p-2 space-y-2" action="" id="multicodeSalesDetail">
+                  <div class="space-x-2">
+                    <label for="print">Print on POS:</label>
+                    <input type="radio" name="printOnPos" value="true" checked />Yes
+                    <input type="radio" name="printOnPos" value="false" />No
+                  </div>
+                  <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit"
+                    value="Sale Detail" />
+                </form>
+              </div>
+              <button class="border w-full p-3 text-sm" id="totalSale">
+                Total Sale
+              </button>
+              <button class="border w-full p-3 text-sm" id="close">
+                Close POS
+              </button>
             </div>
-            <!-- Panel Menu Body -->
           </div>
+          <!-- Panel Menu POS Integrado -->
+
+          <!-- Panel Menu Body POS Integrado -->
+          <div>
+            <div class="h-full overflow-auto" id="pos-response"></div>
+          </div>
+          <!-- Panel Menu Body -->
+        </div>
       </div>
       <div class="panel-2 tab-content h-full">
         <div class="flex h-full">
-          <!-- Panel Menu -->
+          <!-- Panel Menu POS Autoservicio -->
           <div class="flex flex-col border-r-2 w-64 h-full bg-gray-50 overflow-y-auto">
             <div id="connection-autoservicio" class="">
               <p class="pl-3 bg-gray-200">Connection</p>
-              <button class="border w-full p-3 text-sm" id="autoservicio-connect">Connect</button>
+              <div class="pl-3 py-3">
+                <label for="baudrate-autoservicio">Baudrate:</label>
+                <select name="baudrate-autoservicio" id="baudrate-autoservicio" class="w-40">
+                  <option value="115200" selected>115200</option>
+                  <option value="57600">57600</option>
+                  <option value="19200">19200</option>
+                  <option value="14400">14400</option>
+                  <option value="9600">9600</option>
+                  <option value="4800">4800</option>
+                  <option value="2400">2400</option>
+                </select>
+              </div>
+              <button class="border w-full p-3 text-sm" id="autoservicio-connect">
+                Connect
+              </button>
             </div>
             <div id="operations-autoservicio" class="">
               <p class="pl-3 bg-gray-200">Operations</p>
-              <button class="border w-full p-3 text-sm" id="autoservicio-poll">Poll</button>
-              <button class="border w-full p-3 text-sm" id="autoservicio-initialization">Initialization</button>
-              <button class="border w-full p-3 text-sm" id="autoservicio-initialization-response">Initialization Response</button>
-              <button class="border w-full p-3 text-sm" id="autoservicio-loadkeys">LoadKeys</button>
+              <button class="border w-full p-3 text-sm" id="autoservicio-poll">
+                Poll
+              </button>
+              <button class="border w-full p-3 text-sm" id="autoservicio-initialization">
+                Initialization
+              </button>
+              <button class="border w-full p-3 text-sm" id="autoservicio-initialization-response">
+                Initialization Response
+              </button>
+              <button class="border w-full p-3 text-sm" id="autoservicio-loadkeys">
+                LoadKeys
+              </button>
               <div class="border-t border-b p-1">
                 <p>Normal Sale:</p>
                 <form class="flex flex-col items-center p-2 space-y-2" action="" id="autoservicio-sale">
-                  <input class="p-2 border rounded-xl focus:outline-none" type="text" name="amount" placeholder="Amount" required>
+                  <input class="p-2 border rounded-xl focus:outline-none" type="text" name="amount" placeholder="Amount"
+                    required />
                   <div class="space-x-2">
                     <label for="print">Get Voucher:</label>
-                    <input type="radio" name="getVoucher" value="true" checked>Yes
-                    <input type="radio" name="getVoucher" value="false">No
+                    <input type="radio" name="getVoucher" value="true" checked />Yes
+                    <input type="radio" name="getVoucher" value="false" />No
                   </div>
-                  <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit" value="Sale">
+                  <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit"
+                    value="Sale" />
                 </form>
               </div>
               <div class="border-t border-b p-1">
                 <p>Multi Code Sale:</p>
                 <form class="flex flex-col items-center p-2 space-y-2" action="" id="autoservicio-multicode-sale">
-                  <input class="p-2 border rounded-xl focus:outline-none" type="text" name="amount" placeholder="Amount" required>
-                  <input class="p-2 border rounded-xl focus:outline-none" type="text" name="commerceCode" placeholder="Commerce Code" required>
+                  <input class="p-2 border rounded-xl focus:outline-none" type="text" name="amount" placeholder="Amount"
+                    required />
+                  <input class="p-2 border rounded-xl focus:outline-none" type="text" name="commerceCode"
+                    placeholder="Commerce Code" required />
                   <div class="space-x-2">
                     <label for="print">Get Voucher:</label>
-                    <input type="radio" name="getVoucher" value="true" checked>Yes
-                    <input type="radio" name="getVoucher" value="false">No
+                    <input type="radio" name="getVoucher" value="true" checked />Yes
+                    <input type="radio" name="getVoucher" value="false" />No
                   </div>
-                  <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit" value="Sale">
+                  <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit"
+                    value="Sale" />
                 </form>
               </div>
               <div class="border-t border-b p-1">
@@ -183,39 +267,42 @@
                 <form class="flex flex-col items-center p-2 space-y-2" action="" id="autoservicio-last-sale">
                   <div class="space-x-2">
                     <label for="print">Get Voucher:</label>
-                    <input type="radio" name="getVoucher" value="true" checked>Yes
-                    <input type="radio" name="getVoucher" value="false">No
+                    <input type="radio" name="getVoucher" value="true" checked />Yes
+                    <input type="radio" name="getVoucher" value="false" />No
                   </div>
-                  <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit" value="Last Sale">
+                  <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit"
+                    value="Last Sale" />
                 </form>
               </div>
-              <button class="border w-full p-3 text-sm" id="autoservicio-refund">Refund</button>
+              <button class="border w-full p-3 text-sm" id="autoservicio-refund">
+                Refund
+              </button>
               <div class="border-t border-b p-1">
                 <p>Close:</p>
                 <form class="flex flex-col items-center p-2 space-y-2" action="" id="autoservicio-close">
                   <div class="space-x-2">
                     <label for="print">Get Voucher:</label>
-                    <input type="radio" name="getVoucher" value="true" checked>Yes
-                    <input type="radio" name="getVoucher" value="false">No
+                    <input type="radio" name="getVoucher" value="true" checked />Yes
+                    <input type="radio" name="getVoucher" value="false" />No
                   </div>
-                  <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit" value="Close">
+                  <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit"
+                    value="Close" />
                 </form>
               </div>
             </div>
           </div>
-          <!-- Panel Menu -->
+          <!-- Panel Menu POS Autoservicio -->
 
-          <!-- Panel Menu Body -->
-          <div class="h-full overflow-auto" id="autoservicio-response">
-
-          </div>
-          <!-- Panel Menu Body -->
+          <!-- Panel Menu Body POS Autoservicio -->
+          <div class="h-full overflow-auto" id="autoservicio-response"></div>
+          <!-- Panel Menu Body POS Autoservicio -->
         </div>
       </div>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="./dist/POS.js"></script>
-  <script src="./index.js"></script>   
+  <script src="./index.js"></script>
 </body>
+
 </html>
