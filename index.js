@@ -7,9 +7,6 @@ function onTabClick(event) {
 
     for (let i = 0; i < tab.length; i++) {
         tab[i].classList.remove("active");
-        tab[i].classList.remove("text-blue-500");
-        tab[i].classList.remove("border-b-2");
-        tab[i].classList.remove("border-blue-500");
     }
 
     for (let i = 0; i < panel.length; i++) {
@@ -17,7 +14,7 @@ function onTabClick(event) {
     }
 
     // activate new tabs and panel
-    event.target.classList.add('active', 'text-blue-500', 'border-b-2', 'border-blue-500');
+    event.target.classList.add('active');
     let classString = event.target.getAttribute('data-target');
     document.getElementById('panels').getElementsByClassName(classString)[0].classList.add("active");
 }
@@ -60,11 +57,11 @@ const whenConnect = (type = 'pos') => {
 
     if(type != 'pos') {
         if(!$('#autoservicio-disconnect').length)
-            $('#connection-autoservicio').append('<button class="border w-full p-3 text-sm" id="autoservicio-disconnect">Disconnect</button>');
+            $('#connection-autoservicio').append('<button class="ml-4 tbk-button-4" id="autoservicio-disconnect">Disconnect</button>');
     }
     else {
         if(!$('#disconnect').length)
-            $('#connection').append('<button class="border w-full p-3 text-sm" id="disconnect">Disconnect</button>');
+            $('#connection').append('<button class="ml-4 tbk-button-4" id="disconnect">Disconnect</button>');
     }
 
     $('#statePOS').html(`Connected to POS`);
@@ -72,7 +69,7 @@ const whenConnect = (type = 'pos') => {
 
 $(document).ready(() => {
     $('#browser_support').html(
-        Transbank.POS.Integrado.browserSupport? 'Supported' : 'NotSupported'
+        Transbank.POS.Integrado.browserSupport? 'Soportado' : 'No soportado'
     );
 
     Transbank.POS.Integrado.autoConnect().then((result) => {
@@ -99,13 +96,13 @@ $('#connection').on('click', '#disconnect', async function (e) {
     try {
         Transbank.POS.Integrado.disconnect().then((result) => {
             console.log(result);
-            $('#statePOS').html(`Port closed`);
+            $('#statePOS').html(`Desconectado`);
             $('#disconnect').remove();
         });
     }
     catch(err) {
         console.log(err);
-        $('#statePOS').html(`Failed to close port`);
+        $('#statePOS').html(`No se pudo cerrar la conexión`);
     }
 });
 
@@ -269,7 +266,7 @@ $('#autoservicio-connect').click(function (e) {
 
         whenConnect('autoservicio');
 
-        $('#statePOS').html(`Connected to POS`);
+        $('#statePOS').html(`POS conectado`);
     });
 });
 
@@ -278,13 +275,13 @@ $('#connection-autoservicio').on('click', '#autoservicio-disconnect', async func
     try {
         Transbank.POS.Autoservicio.disconnect().then((result) => {
             console.log(result);
-            $('#statePOS').html(`Port closed`);
+            $('#statePOS').html(`Desconectado`);
             $('#autoservicio-disconnect').remove();
         });
     }
     catch(err) {
         console.log(err);
-        $('#statePOS').html(`Failed to close port`);
+        $('#statePOS').html(`No se pudo cerrar la conexión`);
     }
 });
 

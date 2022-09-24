@@ -6,87 +6,53 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  <link href="./app.css" rel="stylesheet" type="text/css">
   <title>Test POS Web</title>
-  <style>
-    .tab-content {
-      display: none;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    pre {
-      padding: 5px;
-      margin: 5px;
-    }
-
-    .string {
-      color: green;
-    }
-
-    .number {
-      color: darkorange;
-    }
-
-    .boolean {
-      color: blue;
-    }
-
-    .null {
-      color: magenta;
-    }
-
-    .key {
-      color: red;
-    }
-  </style>
 </head>
 
 <body>
   <div class="flex flex-col h-screen">
-    <div id="state" class="flex flex-col border-b-4 h-28">
+    <div id="state" class="flex flex-col">
       <!-- Status Bar -->
-      <div class="flex flex-row w-full space-x-4 items-center divide-x-2 p-3 border-b">
-        <div class="flex flex-row space-x-2">
-          <p>Browser support:</p>
+      <div class="flex flex-row w-full items-center nav-bar">
+        <div class="flex flex-row space-x-2 ml-10 mr-auto">
+          <p class="font-medium">Compatibilidad con navegador:</p>
           <p id="browser_support"></p>
         </div>
-        <div class="flex flex-row space-x-2 mr-3">
-          <p>POS state:</p>
+        <div class="flex flex-row space-x-2 p-5 border-r">
+          <p class="font-medium">Estado de punto de venta:</p>
           <p id="statePOS"></p>
         </div>
-        <div class="flex flex-row space-x-2 mr-3">
-          <p>Sale state:</p>
+        <div class="flex flex-row space-x-2 mx-10">
+          <p class="font-medium">Estado de venta:</p>
           <p id="stateSale"></p>
         </div>
       </div>
       <!-- Status Bar -->
 
       <!-- Options Tabs -->
-      <div>
-        <nav class="tabs flex flex-col sm:flex-row">
-          <button data-target="panel-1"
-            class="tab active text-gray-600 py-4 px-6 block font-medium hover:text-blue-500 focus:outline-none text-blue-500 border-b-2 border-blue-500">
+      <nav class="tab-bar px-8">
+        <div class="tabs flex flex-col sm:flex-row justify-center">
+          <button data-target="panel-1" class="tab active py-4 px-6 block font-medium focus:outline-none tab-tbk">
             POS Integrado
           </button>
-          <button data-target="panel-2"
-            class="tab text-gray-600 py-4 px-6 block font-medium hover:text-blue-500 focus:outline-none">
+          <button data-target="panel-2" class="tab py-4 px-6 block font-medium focus:outline-none tab-tbk">
             POS Autoservicio
           </button>
-        </nav>
-      </div>
+        </div>
+      </nav>
       <!-- Options Tabs -->
     </div>
-    <div class="h-full overflow-hidden" id="panels">
+    <div class="h-full" id="panels">
       <div class="panel-1 tab-content h-full active">
-        <div class="flex h-full">
-          <!-- Panel Menu POS Integrado-->
-          <div class="flex flex-col border-r-2 w-64 h-full bg-gray-50 overflow-auto">
-            <div id="connection" class="">
-              <p class="pl-3 bg-gray-200">Connection</p>
-              <div class="pl-3 py-3">
-                <label for="baudrate-integrado">Baudrate:</label>
+        <!-- Connection Bar -->
+        <div class="connection-bar px-8">
+          <div class="flex flex-col h-full justify-center">
+            <p class="font-medium text-base mb-4">Conexión:</p>
+            <div class="flex flex-row tbk-control" id="connection">
+              <div class="self-center tbk-control">
+                <label for="baudrate-integrado" class="font-normal mr-4">Baudrate</label>
                 <select name="baudrate-integrado" id="baudrate-integrado" class="w-40">
                   <option value="115200" selected>115200</option>
                   <option value="57600">57600</option>
@@ -97,103 +63,93 @@
                   <option value="2400">2400</option>
                 </select>
               </div>
-              <button class="border w-full p-3 text-sm" id="connect">
-                Connect
-              </button>
-            </div>
-            <div id="operations" class="">
-              <p class="pl-3 bg-gray-200">Operations</p>
-              <button class="border w-full p-3 text-sm" id="poll">
-                Poll
-              </button>
-              <button class="border w-full p-3 text-sm" id="setNormalMode">
-                SetNormalMode
-              </button>
-              <button class="border w-full p-3 text-sm" id="loadKeys">
-                LoadKeys
-              </button>
-              <div class="border-t border-b p-1">
-                <p>Normal Sale:</p>
-                <form class="flex flex-col items-center p-2 space-y-2" action="" id="sale">
-                  <input class="p-2 border rounded-xl focus:outline-none" type="text" name="amount" placeholder="Amount"
-                    required />
-                  <input class="p-2 border rounded-xl focus:outline-none w-full cursor-pointer" type="submit"
-                    value="Sale" />
-                </form>
-              </div>
-              <div class="border-t border-b p-1">
-                <p>Multi Code Sale:</p>
-                <form class="flex flex-col items-center p-2 space-y-2" action="" id="multicodeSale">
-                  <input class="p-2 border rounded-xl focus:outline-none" type="text" name="amount" placeholder="Amount"
-                    required />
-                  <input class="p-2 border rounded-xl focus:outline-none" type="text" name="commerceCode"
-                    placeholder="Commerce Code" required />
-                  <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit"
-                    value="Sale" />
-                </form>
-              </div>
-              <button class="border w-full p-3 text-sm" id="lastSale">
-                Last Sale
-              </button>
-              <div class="border-t border-b p-1">
-                <p>Multi Code Last Sale:</p>
-                <form class="flex flex-col items-center p-2 space-y-2" action="" id="multicodeLastSale">
-                  <div class="space-x-2">
-                    <label for="print">Get Voucher:</label>
-                    <input type="radio" name="getVoucher" value="true" checked />Yes
-                    <input type="radio" name="getVoucher" value="false" />No
-                  </div>
-                  <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit"
-                    value="Last Sale" />
-                </form>
-              </div>
-              <div class="border-t border-b p-1">
-                <form class="flex flex-col items-center p-2 space-y-2" action="" id="refund">
-                  <input class="p-2 border rounded-xl focus:outline-none" type="text" name="operationId"
-                    placeholder="Operation ID" required />
-                  <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit"
-                    value="Refund" />
-                </form>
-              </div>
-              <div class="border-t border-b p-1">
-                <p>Normal Sales Detail:</p>
-                <form class="flex flex-col items-center p-2 space-y-2" action="" id="salesDetail">
-                  <div class="space-x-2">
-                    <label for="print">Print on POS:</label>
-                    <input type="radio" name="printOnPos" value="true" checked />Yes
-                    <input type="radio" name="printOnPos" value="false" />No
-                  </div>
-                  <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit"
-                    value="Sale Detail" />
-                </form>
-              </div>
-              <div class="border-t border-b p-1">
-                <p>Multi Code Sales Detail:</p>
-                <form class="flex flex-col items-center p-2 space-y-2" action="" id="multicodeSalesDetail">
-                  <div class="space-x-2">
-                    <label for="print">Print on POS:</label>
-                    <input type="radio" name="printOnPos" value="true" checked />Yes
-                    <input type="radio" name="printOnPos" value="false" />No
-                  </div>
-                  <input class="p-2 border rounded-xl w-full focus:outline-none cursor-pointer" type="submit"
-                    value="Sale Detail" />
-                </form>
-              </div>
-              <button class="border w-full p-3 text-sm" id="totalSale">
-                Total Sale
-              </button>
-              <button class="border w-full p-3 text-sm" id="close">
-                Close POS
+              <button class="ml-4 tbk-button" id="connect">
+                Conectar
               </button>
             </div>
           </div>
-          <!-- Panel Menu POS Integrado -->
+        </div>
+        <!-- Connection Bar -->
+        <div class="flex flex-row mt-10">
+          <!-- Operations -->
+          <section class="w-1/2 ml-8 mb-32">
+            <div class="w-full">
+              <div class="operation-bar">
+                <p>Operaciones</p>
+              </div>
+              <div class="tbk-control flex flex-row py-8 space-x-4 divide">
+                <button class="tbk-button-1 w-1/3" id="setNormalMode">Modo Normal</button>
+                <button class="tbk-button-1 w-1/3" id="poll">Poll</button>
+                <button class="tbk-button-1 w-1/3" id="loadKeys">Carga de llaves</button>
+              </div>
+              <div class="flex flex-row pt-8 space-x-4 divide">
+                <form class="tbk-control flex flex-col w-1/3" id="sale">
+                  <p class="mb-4">Venta Normal</p>
+                  <input type="number" class="mb-auto" name="amount" placeholder="Monto" required>
+                  <button type="submit" class="tbk-button-2 mb-8">Venta</button>
+                </form>
+                <form class="tbk-control flex flex-col w-1/3" id="multicodeSale">
+                  <p class="mb-4">Venta multicódigo</p>
+                  <input type="number" class="mb-auto" name="amount" placeholder="Monto" required>
+                  <input type="number" class="my-4" name="commerceCode" placeholder="Código de comercio" required>
+                  <button type="submit" class="tbk-button-2 mb-8">Venta</button>
+                </form>
+                <form class="tbk-control flex flex-col w-1/3" id="refund">
+                  <p class="mb-4"> Rembolso</p>
+                  <input type="number" class="mb-auto" name="operationId" placeholder="ID de la operación" required>
+                  <button type="submit" class="tbk-button-2 mb-8">Reembolsar</button>
+                </form>
+              </div>
+              <div class="flex flex-row py-8 space-x-4 divide">
+                <form class="tbk-control flex flex-col w-1/3" id="multicodeLastSale">
+                  <p class="mb-6">Última venta multicódigo</p>
+                  <label for="" class="mb-2.5">Obtener voucher:</label>
+                  <div class="flex flex-row space-x-2">
+                    <input type="radio" name="getVoucher" value="true" checked>
+                    <p>Si</p>
+                    <input type="radio" name="getVoucher" value="false">
+                    <p>No</p>
+                  </div>
+                  <button type="submit" class="tbk-button-2 mt-6">Última venta</button>
+                </form>
+                <form class="tbk-control flex flex-col w-1/3" id="salesDetail">
+                  <p class="mb-6">Detalle de ventas</p>
+                  <label for="" class="mb-2.5">Imprimir en POS</label>
+                  <div class="flex flex-row space-x-2">
+                    <input type="radio" name="printOnPos" value="true" checked>
+                    <p>Si</p>
+                    <input type="radio" name="printOnPos" value="false">
+                    <p>No</p>
+                  </div>
+                  <button type="submit" class="tbk-button-2 mt-6">Detalle de venta</button>
+                </form>
+                <form class="tbk-control flex flex-col w-1/3" id="multicodeSalesDetail">
+                  <p class="mb-6">Detalle de ventas multicódigo</p>
+                  <label for="" class="mb-2.5">Imprimir en POS</label>
+                  <div class="flex flex-row space-x-2">
+                    <input type="radio" name="getVoucher" value="true" checked>
+                    <p>Si</p>
+                    <input type="radio" name="getVoucher" value="false">
+                    <p>No</p>
+                  </div>
+                  <button type="submit" class="tbk-button-2 mt-6">Detalle de venta</button>
+                </form>
+              </div>
+              <div class="tbk-control flex flex-row pt-8 justify-around">
+                <button class="tbk-button-3" id="lastSale">Última Ventas</button>
+                <button class="tbk-button-3" id="totalSale">Total de ventas</button>
+                <button class="tbk-button-3" id="close">Cerrar POS</button>
+              </div>
+            </div>
+          </section>
+          <!-- Operations -->
 
-          <!-- Panel Menu Body POS Integrado -->
-          <div>
-            <div class="h-full overflow-auto" id="pos-response"></div>
-          </div>
-          <!-- Panel Menu Body -->
+          <!-- Result -->
+          <section class="w-1/2 ml-10 mr-8 mb-32">
+            <div class="response-box w-full flex p-4 h-full" id="pos-response">
+            </div>
+          </section>
+          <!-- Result -->
         </div>
       </div>
       <div class="panel-2 tab-content h-full">
