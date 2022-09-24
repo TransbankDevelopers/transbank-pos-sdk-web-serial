@@ -1,0 +1,164 @@
+body {
+    font-family: "Roboto";
+    font-style: normal;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0.25px;
+}
+
+.nav-bar {
+    background: #f9fbfe;
+    height: 76px;
+}
+
+.tab-bar {
+    height: 56px;
+}
+
+.divide {
+    border-bottom: 0.5px solid #c9d0e4;
+}
+
+.tab-bar > div,
+.connection-bar > div {
+    border-bottom: 0.5px solid #c9d0e4;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-tbk {
+    color: #707382;
+}
+
+.tab-tbk.active {
+    color: #d5006c;
+    border-bottom: 3px solid #d5006c;
+}
+
+.tab-tbk:hover {
+    color: #d5006c;
+    border: 0px;
+}
+
+.tab-tbk.active:hover {
+    color: #d5006c;
+    border-bottom: 3px solid #d5006c;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.connection-bar {
+    height: 104px;
+}
+
+.tbk-control {
+    font-weight: 500;
+}
+
+.tbk-control > .tbk-button {
+    color: #fcfdfe;
+    background: #d5006c;
+    padding: 8px 24px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.tbk-control > .tbk-button-1 {
+    background: #f9fbfe;
+    border-radius: 4px;
+    padding: 8px 24px;
+    color: #2d3338;
+    text-align: center;
+}
+
+.tbk-control > .tbk-button-2 {
+    background: #f9fbfe;
+    border: 1px solid #a0afca;
+    border-radius: 4px;
+    padding: 8px 24px;
+    color: #a0afca;
+    text-align: center;
+}
+
+.tbk-control > .tbk-button-3 {
+    background: #ffffff;
+    padding: 24px 32px;
+    color: #d5006c;
+    box-shadow: 0px 1px 2px rgba(14, 21, 32, 0.18), 0px 0px 2px rgba(14, 21, 32, 0.12), 0px 0px 2px rgba(0, 0, 0, 0.04);
+    text-align: center;
+}
+
+.tbk-control > .tbk-button-4 {
+    color: #d5006c;
+    background: #ffffff;
+    padding: 8px 24px;
+    border: 1px solid #d5006c;
+    border-radius: 4px;
+    text-align: center;
+}
+
+select.tbk-control,
+.tbk-control > select {
+    background: #ffffff;
+    padding: 10px 24px;
+    border: 1px solid #c9d0e4;
+    border-radius: 4px;
+    width: 200px;
+    text-align: left;
+}
+
+label.tbk-control,
+.tbk-control > label {
+    color: #707382;
+}
+
+input.tbk-control,
+.tbk-control > input {
+    background: #ffffff;
+    border: 1px solid #c9d0e4;
+    border-radius: 4px;
+    padding: 8px 16px;
+}
+
+.response-box {
+    border: 1px solid #c9d0e4;
+    border-radius: 4px;
+}
+
+.operation-bar {
+    background: #e7ebf3;
+    padding: 8px;
+}
+
+.tbk-control > .tbk-button-1:hover {
+    color: #d5006c;
+}
+
+pre {
+    padding: 5px;
+    margin: 5px;
+}
+
+.string {
+    color: green;
+}
+
+.number {
+    color: darkorange;
+}
+
+.boolean {
+    color: blue;
+}
+
+.null {
+    color: magenta;
+}
+
+.key {
+    color: red;
+}
