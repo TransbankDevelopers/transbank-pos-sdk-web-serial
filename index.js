@@ -57,14 +57,14 @@ const whenConnect = (type = 'pos') => {
 
     if(type != 'pos') {
         if(!$('#autoservicio-disconnect').length)
-            $('#connection-autoservicio').append('<button class="ml-4 tbk-button-4" id="autoservicio-disconnect">Disconnect</button>');
+            $('#connection-autoservicio').append('<button class="ml-4 tbk-button-4" id="autoservicio-disconnect">Desconectar</button>');
     }
     else {
         if(!$('#disconnect').length)
-            $('#connection').append('<button class="ml-4 tbk-button-4" id="disconnect">Disconnect</button>');
+            $('#connection').append('<button class="ml-4 tbk-button-4" id="disconnect">Desconectar</button>');
     }
 
-    $('#statePOS').html(`Connected to POS`);
+    $('#statePOS').html(`Conectado al POS`);
 }
 
 $(document).ready(() => {
