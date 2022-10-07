@@ -32,7 +32,7 @@
       <!-- Status Bar -->
 
       <!-- Options Tabs -->
-      <nav class="tab-bar px-8">
+      <nav class="px-8">
         <div class="tabs flex flex-col sm:flex-row justify-center">
           <button data-target="panel-1" class="tab active py-4 px-6 block font-medium focus:outline-none tab-tbk">
             POS Integrado
@@ -41,13 +41,14 @@
             POS Autoservicio
           </button>
         </div>
+        <div class="divider"></div>
       </nav>
       <!-- Options Tabs -->
     </div>
     <div class="h-full" id="panels">
       <div class="panel-1 tab-content h-full active">
         <!-- Connection Bar -->
-        <div class="connection-bar px-8">
+        <div class="px-8 mt-8">
           <div class="flex flex-col h-full justify-center">
             <p class="font-medium text-base mb-4">Conexión:</p>
             <div class="flex flex-row tbk-control" id="connection">
@@ -63,11 +64,12 @@
                   <option value="2400">2400</option>
                 </select>
               </div>
-              <button class="ml-4 tbk-button" id="connect">
+              <button class="ml-4 tbk-btn tbk-btn-red" id="connect">
                 Conectar
               </button>
             </div>
           </div>
+          <div class="divider mt-8"></div>
         </div>
         <!-- Connection Bar -->
         <div class="flex flex-row mt-10">
@@ -78,26 +80,26 @@
                 <p>Operaciones</p>
               </div>
               <div class="tbk-control flex flex-row py-8 space-x-4 divide">
-                <button class="tbk-button-1 w-1/3" id="setNormalMode">Modo Normal</button>
-                <button class="tbk-button-1 w-1/3" id="poll">Poll</button>
-                <button class="tbk-button-1 w-1/3" id="loadKeys">Carga de llaves</button>
+                <button class="tbk-btn w-1/3" id="setNormalMode">Modo Normal</button>
+                <button class="tbk-btn w-1/3" id="poll">Poll</button>
+                <button class="tbk-btn w-1/3" id="loadKeys">Carga de llaves</button>
               </div>
               <div class="flex flex-row pt-8 space-x-4 divide">
                 <form class="tbk-control flex flex-col w-1/3" id="sale">
                   <p class="mb-4">Venta Normal</p>
                   <input type="number" class="mb-auto" name="amount" placeholder="Monto" required>
-                  <button type="submit" class="tbk-button-2 mb-8">Venta</button>
+                  <button type="submit" class="tbk-btn mb-8">Venta</button>
                 </form>
                 <form class="tbk-control flex flex-col w-1/3" id="multicodeSale">
                   <p class="mb-4">Venta multicódigo</p>
                   <input type="number" class="mb-auto" name="amount" placeholder="Monto" required>
                   <input type="number" class="my-4" name="commerceCode" placeholder="Código de comercio" required>
-                  <button type="submit" class="tbk-button-2 mb-8">Venta</button>
+                  <button type="submit" class="tbk-btn mb-8">Venta</button>
                 </form>
                 <form class="tbk-control flex flex-col w-1/3" id="refund">
                   <p class="mb-4"> Rembolso</p>
                   <input type="number" class="mb-auto" name="operationId" placeholder="ID de la operación" required>
-                  <button type="submit" class="tbk-button-2 mb-8">Reembolsar</button>
+                  <button type="submit" class="tbk-btn mb-8">Reembolsar</button>
                 </form>
               </div>
               <div class="flex flex-row py-8 space-x-4 divide">
@@ -110,7 +112,7 @@
                     <input type="radio" name="getVoucher" value="false">
                     <p>No</p>
                   </div>
-                  <button type="submit" class="tbk-button-2 mt-6">Última venta</button>
+                  <button type="submit" class="tbk-btn mt-6">Última venta</button>
                 </form>
                 <form class="tbk-control flex flex-col w-1/3" id="salesDetail">
                   <p class="mb-6">Detalle de ventas</p>
@@ -121,7 +123,7 @@
                     <input type="radio" name="printOnPos" value="false">
                     <p>No</p>
                   </div>
-                  <button type="submit" class="tbk-button-2 mt-6">Detalle de venta</button>
+                  <button type="submit" class="tbk-btn mt-6">Detalle de venta</button>
                 </form>
                 <form class="tbk-control flex flex-col w-1/3" id="multicodeSalesDetail">
                   <p class="mb-6">Detalle de ventas multicódigo</p>
@@ -132,13 +134,13 @@
                     <input type="radio" name="getVoucher" value="false">
                     <p>No</p>
                   </div>
-                  <button type="submit" class="tbk-button-2 mt-6">Detalle de venta</button>
+                  <button type="submit" class="tbk-btn mt-6">Detalle de venta</button>
                 </form>
               </div>
               <div class="tbk-control flex flex-row pt-8 justify-around">
-                <button class="tbk-button-3" id="lastSale">Última Venta</button>
-                <button class="tbk-button-3" id="totalSale">Total de ventas</button>
-                <button class="tbk-button-3" id="close">Cerrar POS</button>
+                <button class="tbk-btn tbk-btn-xl" id="lastSale">Última Venta</button>
+                <button class="tbk-btn tbk-btn-xl" id="totalSale">Total de ventas</button>
+                <button class="tbk-btn tbk-btn-xl" id="close">Cerrar POS</button>
               </div>
             </div>
           </section>

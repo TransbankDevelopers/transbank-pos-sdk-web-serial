@@ -1,3 +1,10 @@
+:root {
+    --tbk-primary-color: #d5006c;
+    --tbk-secondary-color: #99006C;
+    --tbk-background-color: #F9FBFE;
+    --tbk-disabled-color: #A0AFCA;
+}
+
 body {
     font-family: "Roboto";
     font-style: normal;
@@ -15,12 +22,7 @@ body {
     height: 56px;
 }
 
-.divide {
-    border-bottom: 0.5px solid #c9d0e4;
-}
-
-.tab-bar > div,
-.connection-bar > div {
+.divider {
     border-bottom: 0.5px solid #c9d0e4;
 }
 
@@ -34,7 +36,7 @@ body {
 
 .tab-tbk.active {
     color: #d5006c;
-    border-bottom: 3px solid #d5006c;
+    border-bottom: 3px solid var(--tbk-primary-color);
 }
 
 .tab-tbk:hover {
@@ -44,7 +46,7 @@ body {
 
 .tab-tbk.active:hover {
     color: #d5006c;
-    border-bottom: 3px solid #d5006c;
+    border-bottom: 3px solid var(--tbk-primary-color);
 }
 
 .tab-content.active {
@@ -55,50 +57,38 @@ body {
     height: 104px;
 }
 
+.tbk-btn {
+    background: var(--tbk-background-color);
+    border: 1px solid var(--tbk-primary-color);
+    color: var(--tbk-primary-color);
+    border-radius: 4px;
+    padding: 8px 24px;
+    text-align: center;
+}
+
+.tbk-btn:hover {
+    border: 1px solid var(--tbk-secondary-color);
+    color: var(--tbk-secondary-color);
+}
+
+.tbk-btn.tbk-btn-xl {
+    background: var(--tbk-background-color);
+    box-shadow: 0px 1px 2px rgba(14, 21, 32, 0.18), 0px 0px 2px rgba(14, 21, 32, 0.12), 0px 0px 2px rgba(0, 0, 0, 0.04);
+    padding: 24px 32px;
+}
+
+.tbk-btn.tbk-btn-red {
+    background: var(--tbk-primary-color);
+    color: var(--tbk-background-color);
+}
+
+.tbk-btn:disabled {
+    border: 1px solid var(--tbk-disabled-color);
+    color: var(--tbk-disabled-color);
+}
+
 .tbk-control {
     font-weight: 500;
-}
-
-.tbk-control > .tbk-button {
-    color: #fcfdfe;
-    background: #d5006c;
-    padding: 8px 24px;
-    border-radius: 4px;
-    text-align: center;
-}
-
-.tbk-control > .tbk-button-1 {
-    background: #f9fbfe;
-    border-radius: 4px;
-    padding: 8px 24px;
-    color: #2d3338;
-    text-align: center;
-}
-
-.tbk-control > .tbk-button-2 {
-    background: #f9fbfe;
-    border: 1px solid #a0afca;
-    border-radius: 4px;
-    padding: 8px 24px;
-    color: #a0afca;
-    text-align: center;
-}
-
-.tbk-control > .tbk-button-3 {
-    background: #ffffff;
-    padding: 24px 32px;
-    color: #d5006c;
-    box-shadow: 0px 1px 2px rgba(14, 21, 32, 0.18), 0px 0px 2px rgba(14, 21, 32, 0.12), 0px 0px 2px rgba(0, 0, 0, 0.04);
-    text-align: center;
-}
-
-.tbk-control > .tbk-button-4 {
-    color: #d5006c;
-    background: #ffffff;
-    padding: 8px 24px;
-    border: 1px solid #d5006c;
-    border-radius: 4px;
-    text-align: center;
 }
 
 select.tbk-control,
