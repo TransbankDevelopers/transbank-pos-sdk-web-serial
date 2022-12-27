@@ -56,8 +56,8 @@ function printResponse(response, element) {
 const whenConnect = (type = 'pos') => {
 
     if(type != 'pos') {
-        if(!$('#autoservicio-disconnect').length)
-            $('#connection-autoservicio').append('<button class="ml-4 tbk-btn" id="autoservicio-disconnect">Desconectar</button>');
+        if(!$('#selfService-disconnect').length)
+            $('#connection-selfService').append('<button class="ml-4 tbk-btn" id="selfService-disconnect">Desconectar</button>');
     }
     else {
         if(!$('#disconnect').length)
@@ -65,6 +65,11 @@ const whenConnect = (type = 'pos') => {
     }
 
     $('#statePOS').html(`Conectado al POS`);
+}
+
+function activate(type = 'pos') {
+    const posButtons = ['setNormalMode', 'poll', 'loadKeys', 'saleBtn', 'multicodeSaleBtn', 'refundBtn', 'multicodeLastSaleBtn', 'salesDetailBtn', 'multicodeLastSaleBtn', 'lastSale', 'totalSale', 'close'];
+    const selfServiceButtons = ['selfService-initialization', 'selfService-initialization-response', 'selfService-poll', 'selfService-loadKeys', 'selfService-saleBtn', 'selfService-multicodeSaleBtn', 'selfService-refundBtn', 'selfService-lastSale', 'selfService-close'];
 }
 
 $(document).ready(() => {
@@ -254,29 +259,29 @@ function saleState(posResponse) {
     $('#stateSale').html(posResponse.responseMessage);
 }
 
-// POS Autoservicio
+// POS selfService
 
-$('#autoservicio-connect').click(function (e) { 
+$('#selfService-connect').click(function (e) { 
     e.preventDefault();
 
-    let baudrate = $('#baudrate-autoservicio option:selected').val();
+    let baudrate = $('#baudrate-selfService option:selected').val();
 
-    Transbank.POS.Autoservicio.connect(baudrate).then((result) => {
+    Transbank.POS.selfService.connect(baudrate).then((result) => {
         console.log(result);
 
-        whenConnect('autoservicio');
+        whenConnect('selfService');
 
         $('#statePOS').html(`POS conectado`);
     });
 });
 
-$('#connection-autoservicio').on('click', '#autoservicio-disconnect', async function (e) {
+$('#connection-selfService').on('click', '#selfService-disconnect', async function (e) {
     e.preventDefault();
     try {
-        Transbank.POS.Autoservicio.disconnect().then((result) => {
+        Transbank.POS.selfService.disconnect().then((result) => {
             console.log(result);
             $('#statePOS').html(`Desconectado`);
-            $('#autoservicio-disconnect').remove();
+            $('#selfService-disconnect').remove();
         });
     }
     catch(err) {
@@ -285,49 +290,49 @@ $('#connection-autoservicio').on('click', '#autoservicio-disconnect', async func
     }
 });
 
-$('#autoservicio-poll').click(async function (e) { 
+$('#selfService-poll').click(async function (e) { 
     e.preventDefault();
     
-    Transbank.POS.Autoservicio.poll().then((response) => {
+    Transbank.POS.selfService.poll().then((response) => {
         console.log(response);
-        printResponse(response, $('#autoservicio-response'));
+        printResponse(response, $('#selfService-response'));
     }).catch(err => console.log(err));
 });
 
-$('#autoservicio-initialization').click(async function (e) { 
+$('#selfService-initialization').click(async function (e) { 
     e.preventDefault();
     
-    Transbank.POS.Autoservicio.initialization().then((response) => {
+    Transbank.POS.selfService.initialization().then((response) => {
         console.log(response);
-        printResponse(response, $('#autoservicio-response'));
+        printResponse(response, $('#selfService-response'));
     }).catch(err => console.log(err));
 });
 
-$('#autoservicio-initialization-response').click(async function (e) { 
+$('#selfService-initialization-response').click(async function (e) { 
     e.preventDefault();
     
-    Transbank.POS.Autoservicio.initializationResponse().then((response) => {
+    Transbank.POS.selfService.initializationResponse().then((response) => {
         console.log(response);
-        printResponse(response, $('#autoservicio-response'));
+        printResponse(response, $('#selfService-response'));
     }).catch(err => console.log(err));
 });
 
-$('#autoservicio-loadkeys').click(async function (e) { 
+$('#selfService-loadkeys').click(async function (e) { 
     e.preventDefault();
     
-    Transbank.POS.Autoservicio.loadKeys().then((response) => {
+    Transbank.POS.selfService.loadKeys().then((response) => {
         console.log(response);
-        printResponse(response, $('#autoservicio-response'));
+        printResponse(response, $('#selfService-response'));
     }).catch(err => console.log(err));
 });
 
-$('#autoservicio-sale').submit( function (e) { 
+$('#selfService-sale').submit( function (e) { 
     e.preventDefault();
 
-    let formData = new FormData(document.querySelector('#autoservicio-sale'));
+    let formData = new FormData(document.querySelector('#selfService-sale'));
     let data = Object.fromEntries(formData);
 
-    Transbank.POS.Autoservicio.sale(
+    Transbank.POS.selfService.sale(
         data.amount,
         'ABC123',
         data.getVoucher,
@@ -335,17 +340,17 @@ $('#autoservicio-sale').submit( function (e) {
         saleState
     ).then((response) => {
         console.log(response);
-        printResponse(response, $('#autoservicio-response'));
+        printResponse(response, $('#selfService-response'));
     }).catch(err => console.log(err));
 });
 
-$('#autoservicio-multicode-sale').submit(async function (e) { 
+$('#selfService-multicode-sale').submit(async function (e) { 
     e.preventDefault();
 
-    let formData = new FormData(document.querySelector('#autoservicio-multicode-sale'));
+    let formData = new FormData(document.querySelector('#selfService-multicode-sale'));
     let data = Object.fromEntries(formData);
 
-    Transbank.POS.Autoservicio.multiCodeSale(
+    Transbank.POS.selfService.multiCodeSale(
         data.amount,
         'ABC123',
         data.commerceCode,
@@ -354,41 +359,41 @@ $('#autoservicio-multicode-sale').submit(async function (e) {
         saleState
     ).then((response) => {
         console.log(response);
-        printResponse(response, $('#autoservicio-response'));
+        printResponse(response, $('#selfService-response'));
     }).catch(err => console.log(err));
 });
 
-$('#autoservicio-last-sale').submit(async function (e) { 
+$('#selfService-last-sale').submit(async function (e) { 
     e.preventDefault();
 
-    let formData = new FormData(document.querySelector('#autoservicio-last-sale'));
+    let formData = new FormData(document.querySelector('#selfService-last-sale'));
     let data = Object.fromEntries(formData);
 
-    Transbank.POS.Autoservicio.lastSale(data.getVoucher).then((response) => {
+    Transbank.POS.selfService.lastSale(data.getVoucher).then((response) => {
         console.log(response);
-        printResponse(response, $('#autoservicio-response'));
+        printResponse(response, $('#selfService-response'));
     }).catch(err => console.log(err));
     
 });
 
-$('#autoservicio-refund').click(async function (e) { 
+$('#selfService-refund').click(async function (e) { 
     e.preventDefault();
     
-    Transbank.POS.Autoservicio.refund().then((response) => {
+    Transbank.POS.selfService.refund().then((response) => {
         console.log(response);
-        printResponse(response, $('#autoservicio-response'));
+        printResponse(response, $('#selfService-response'));
     }).catch(err => console.log(err));
 });
 
-$('#autoservicio-close').submit(async function (e) { 
+$('#selfService-close').submit(async function (e) { 
     e.preventDefault();
 
-    let formData = new FormData(document.querySelector('#autoservicio-close'));
+    let formData = new FormData(document.querySelector('#selfService-close'));
     let data = Object.fromEntries(formData);
 
-    Transbank.POS.Autoservicio.closeDay(data.getVoucher).then((response) => {
+    Transbank.POS.selfService.closeDay(data.getVoucher).then((response) => {
         console.log(response);
-        printResponse(response, $('#autoservicio-response'));
+        printResponse(response, $('#selfService-response'));
     }).catch(err => console.log(err));
     
 });
